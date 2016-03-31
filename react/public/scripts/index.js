@@ -1,42 +1,51 @@
-var CommentBox = React.createClass({displayName: 'CommentBox',
-    render: function() {
-   		return (
-        	React.createElement('div', {
-       		 		className: "commentBox"
-               	},
-          		"Hello, world! I am a CommentBox.",
-          		React.createElement(CommentList),
-          		React.createElement(CommentForm)
-        	)
-        );
-    }
+
+var CommentBox = React.createClass({
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList />
+        <CommentForm />
+      </div>
+    );
+  }
 });
 
-var CommentList = React.createClass({displayName: 'CommentList',
-	render: function() {
-		return (
-			React.createElement('div', {
-					className: 'commentList'
-				},
-				"This is a comment list"
-			)
-		);
-	}
+var CommentList = React.createClass({
+  render: function() {
+    return (
+      <div className="commentList">
+	      <Comment author='Adam Hunt'>This is a comment!</Comment>
+	      <Comment author='Peggy Carter'>This is also a comment!</Comment>
+      </div>
+    );
+  }
 });
 
-var CommentForm = React.createClass({displayName: 'CommentForm',
-	render: function() {
-		return (
-			React.createElement('div', {
-					className: 'commentForm'
-				},
-				"This is a comment form"
-			)
-		);
-	}
+var CommentForm = React.createClass({
+  render: function() {
+    return (
+      <div className="commentForm">
+        Hello, world! I am a CommentForm.
+      </div>
+    );
+  }
+});
+
+var Comment = React.createClass({
+  render: function() {
+    return (
+      <div className="comment">
+        <h2 className="commentAuthor">
+          {this.props.author}
+        </h2>
+        {this.props.children}
+      </div>
+    );
+  }
 });
 
 ReactDOM.render(
-  React.createElement(CommentBox, null),
+  <CommentBox />,
   document.getElementById('content')
 );
