@@ -23,6 +23,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/comments', (req, res) => {
+
+    console.log('GET /api/comments')
+
     fs.readFile(COMMENTS_FILE, (err, data) => {
         if (err) {
             console.error(err);
@@ -33,6 +36,9 @@ app.get('/api/comments', (req, res) => {
 });
 
 app.post('/api/comments', (req, res) => {
+
+    console.log('POST  /api/comments');
+
     fs.readFile(COMMENTS_FILE, (err, data) => {
         if (err) {
             console.error(err);
@@ -40,6 +46,8 @@ app.post('/api/comments', (req, res) => {
         }
         
         var comments = JSON.parse(data);
+
+        console.log(req.body);
 
         var newComment = {
             id: Date.now(),
