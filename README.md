@@ -1,2 +1,2 @@
-# experiments
+# Experiments
 Experimenting with new technologies
