@@ -1,0 +1,41 @@
+.menuBar {
+  height: 75px;
+  width: 100%;
+  background-color: #CCCCCC;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.searchBar {
+  margin-top: 10px;
+  padding-left: 10px;
+  height: 55px;
+  width: 200px;
+  background-color: white;
+  line-height: 55px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transition: 1s;
+  opacity: 0;
+
+}
+
+.animate {
+  transition: 1s;
+  opacity: 1;
+}
+
+.searchIcon {
+  margin-top: 10px;
+  margin-right: 10px;
+  height: 55px;
+  width: 55px;
+  background-color: cyan;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.searchIcon:hover {
+  background-color: blue;
+  cursor: pointer;
+}
