@@ -2,11 +2,8 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-import fs from 'fs';
 
 const app = express();
-
-const COMMENTS_FILE = path.join(__dirname, '/../comments.json');
 
 app.set('port', (process.env.PORT || 8080));
 app.use(express.static(__dirname + '/../public'));

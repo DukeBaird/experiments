@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-// const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: './public/index.jsx',
@@ -8,14 +7,6 @@ module.exports = {
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, './public/dist')
 	},
-	// plugins: [
-	// 	new HTMLWebpackPlugin({
-	// 		title: 'Code Splitting'
-	// 	}),
-	// 	new webpack.optimize.CommonsChunkPlugin({
-	// 		name: 'common'
-	// 	})
-	// ],
 	module: {
 		loaders: [
 			{
@@ -23,7 +14,8 @@ module.exports = {
 	            loader: "babel-loader",
 	            exclude: [/node_modules/],
 	            query: {
-	                presets: ['es2015', 'react']
+	                presets: ['es2015', 'react'],
+	                plugins: ['transform-decorators-legacy', 'transform-class-properties']
 	            }
 	        }
 		]

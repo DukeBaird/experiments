@@ -1,21 +1,38 @@
-import React, {PropTypes} from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { observer } from 'mobx-react';
 
-
-
+@observer
 class Content extends React.Component {
 
-	constructor(props, context) {
-		super(props, context);
-	}
-
 	render() {
+		const list = this.props.list;
+
 		return (
-			<div className='contentArea'>
-				Hello!
+			<div>
+				<ul>
+					{list.list.map(item => 
+						<ListItem item={item} />
+					)}
+				</ul>
+				<button onClick={ this.clickMe }>Click Me</button>
 			</div>
 		)
 	}
+
+	clickMe = () => {
+		console.log('click');
+
+		this.props.list.addItem({
+			title: "Ben"
+		});
+	}
 }
+
+const ListItem = observer(({item}) =>
+	<li>
+		{item.title}
+	</li>
+)
 
 export default Content;
