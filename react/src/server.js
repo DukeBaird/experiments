@@ -11,6 +11,9 @@ const COMMENTS_FILE = path.join(__dirname, '/../comments.json');
 app.set('port', (process.env.PORT || 8080));
 app.use(express.static(__dirname + '/../public'));
 app.use(bodyParser.json());
+app.set('views', __dirname + '/../views');
+app.set('view engine', 'pug');
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,49 +23,6 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
     res.render('index');
-});
-
-app.get('/api/comments', (req, res) => {
-
-    console.log('GET /api/comments')
-
-    fs.readFile(COMMENTS_FILE, (err, data) => {
-        if (err) {
-            console.error(err);
-            process.exit(1);
-        }
-        res.json(JSON.parse(data));
-    });
-});
-
-app.post('/api/comments', (req, res) => {
-
-    console.log('POST  /api/comments');
-
-    fs.readFile(COMMENTS_FILE, (err, data) => {
-        if (err) {
-            console.error(err);
-            process.exit(1);
-        }
-        
-        var comments = JSON.parse(data);
-
-        console.log(req.body);
-
-        var newComment = {
-            id: Date.now(),
-            author: req.body.author,
-            text: req.body.text,
-        };
-        comments.push(newComment);
-        fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), (err) => {
-            if (err) {
-                console.error(err);
-                process.exit(1);
-            }
-            res.json(comments);
-        });
-    });
 });
 
 app.listen(app.get('port'), () => {
