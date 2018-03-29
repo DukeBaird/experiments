@@ -5,11 +5,18 @@ import Content from './components/Content.jsx';
 import { action, observable } from "mobx"
 
 class List {
-	@observable list = [{title: "FIRST"}];
+	@observable list = [];
 
-	// constructor() {
-	// 	mobx.autorun(() => console.log("changing?"));
-	// }
+	get() {
+		fetch("https://api.github.com/repos/burczu/react-redux-ajax-example/branches")
+			.then(response => {
+			return response.json();
+		}).then(function(data) {
+			this.list = data;
+		}.bind(this)).catch(error => {
+			return error;
+		});
+	}
 
 	@action
 	addItem(item) {

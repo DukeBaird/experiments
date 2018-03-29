@@ -15693,13 +15693,18 @@ var List = (_class = function () {
 	}
 
 	_createClass(List, [{
+		key: 'get',
+		value: function get() {
+			fetch("https://api.github.com/repos/burczu/react-redux-ajax-example/branches").then(function (response) {
+				return response.json();
+			}).then(function (data) {
+				this.list = data;
+			}.bind(this)).catch(function (error) {
+				return error;
+			});
+		}
+	}, {
 		key: 'addItem',
-
-
-		// constructor() {
-		// 	mobx.autorun(() => console.log("changing?"));
-		// }
-
 		value: function addItem(item) {
 			this.list.push(item);
 		}
@@ -15714,7 +15719,7 @@ var List = (_class = function () {
 }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'list', [_mobx.observable], {
 	enumerable: true,
 	initializer: function initializer() {
-		return [{ title: "FIRST" }];
+		return [];
 	}
 }), _applyDecoratedDescriptor(_class.prototype, 'addItem', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'addItem'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeItem', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'removeItem'), _class.prototype)), _class);
 
@@ -30898,16 +30903,19 @@ var Content = (0, _mobxReact.observer)(_class = function (_React$Component) {
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Content.__proto__ || Object.getPrototypeOf(Content)).call.apply(_ref, [this].concat(args))), _this), _this.clickMe = function () {
 			_this.props.list.addItem({
-				title: "Ben"
+				name: "Ben"
 			});
 		}, _this.deleteMe = function (event) {
-			// console.log(event);
-			// console.log(event.target);
 			_this.props.list.removeItem(0);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Content, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.props.list.get();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -30950,8 +30958,8 @@ var ListItem = (0, _mobxReact.observer)(_class3 = function (_React$Component2) {
 		value: function render() {
 			return _react2.default.createElement(
 				'li',
-				{ key: this.props.idx },
-				this.props.item.title,
+				null,
+				this.props.item.name,
 				_react2.default.createElement(
 					'button',
 					{ onClick: this.props.remove },

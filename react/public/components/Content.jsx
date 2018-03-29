@@ -5,6 +5,10 @@ import { observer } from 'mobx-react';
 @observer
 class Content extends React.Component {
 
+	componentDidMount() {
+		this.props.list.get();
+	}
+
 	render() {
 		const list = this.props.list;
 
@@ -22,13 +26,11 @@ class Content extends React.Component {
 
 	clickMe = () => {
 		this.props.list.addItem({
-			title: "Ben"
+			name: "Ben"
 		});
 	}
 
 	deleteMe = (event) => {
-		// console.log(event);
-		// console.log(event.target);
 		this.props.list.removeItem(0);
 	}
 }
@@ -43,7 +45,7 @@ class ListItem extends React.Component {
 	render() {
 		return(
 			<li>
-				{this.props.item.title}
+				{this.props.item.name}
 				<button onClick={ this.props.remove }>Remove</button>
 			</li>
 		)
