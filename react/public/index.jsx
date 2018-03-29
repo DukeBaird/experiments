@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Content from './components/Content.jsx';
-import { observable } from "mobx"
+import { action, observable } from "mobx"
 
 class List {
 	@observable list = [{title: "FIRST"}];
@@ -11,9 +11,14 @@ class List {
 	// 	mobx.autorun(() => console.log("changing?"));
 	// }
 
+	@action
 	addItem(item) {
-		console.log("Add Item");
 		this.list.push(item);
+	}
+
+	@action
+	removeItem(index) {
+		this.list.splice(index, 1);
 	}
 }
 

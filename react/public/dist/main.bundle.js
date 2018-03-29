@@ -15701,8 +15701,12 @@ var List = (_class = function () {
 		// }
 
 		value: function addItem(item) {
-			console.log("Add Item");
 			this.list.push(item);
+		}
+	}, {
+		key: 'removeItem',
+		value: function removeItem(index) {
+			this.list.splice(index, 1);
 		}
 	}]);
 
@@ -15712,7 +15716,7 @@ var List = (_class = function () {
 	initializer: function initializer() {
 		return [{ title: "FIRST" }];
 	}
-})), _class);
+}), _applyDecoratedDescriptor(_class.prototype, 'addItem', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'addItem'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'removeItem', [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, 'removeItem'), _class.prototype)), _class);
 
 
 _reactDom2.default.render(_react2.default.createElement(
@@ -30858,7 +30862,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class;
+var _class, _class3;
 
 var _react = __webpack_require__(8);
 
@@ -30893,17 +30897,21 @@ var Content = (0, _mobxReact.observer)(_class = function (_React$Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Content.__proto__ || Object.getPrototypeOf(Content)).call.apply(_ref, [this].concat(args))), _this), _this.clickMe = function () {
-			console.log('click');
-
 			_this.props.list.addItem({
 				title: "Ben"
 			});
+		}, _this.deleteMe = function (event) {
+			// console.log(event);
+			// console.log(event.target);
+			_this.props.list.removeItem(0);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Content, [{
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
 			var list = this.props.list;
 
 			return _react2.default.createElement(
@@ -30912,8 +30920,8 @@ var Content = (0, _mobxReact.observer)(_class = function (_React$Component) {
 				_react2.default.createElement(
 					'ul',
 					null,
-					list.list.map(function (item) {
-						return _react2.default.createElement(ListItem, { item: item });
+					list.list.map(function (item, i) {
+						return _react2.default.createElement(ListItem, { item: item, idx: i, remove: _this2.deleteMe });
 					})
 				),
 				_react2.default.createElement(
@@ -30928,14 +30936,33 @@ var Content = (0, _mobxReact.observer)(_class = function (_React$Component) {
 	return Content;
 }(_react2.default.Component)) || _class;
 
-var ListItem = (0, _mobxReact.observer)(function (_ref2) {
-	var item = _ref2.item;
-	return _react2.default.createElement(
-		'li',
-		null,
-		item.title
-	);
-});
+var ListItem = (0, _mobxReact.observer)(_class3 = function (_React$Component2) {
+	_inherits(ListItem, _React$Component2);
+
+	function ListItem(props) {
+		_classCallCheck(this, ListItem);
+
+		return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this, props));
+	}
+
+	_createClass(ListItem, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'li',
+				{ key: this.props.idx },
+				this.props.item.title,
+				_react2.default.createElement(
+					'button',
+					{ onClick: this.props.remove },
+					'Remove'
+				)
+			);
+		}
+	}]);
+
+	return ListItem;
+}(_react2.default.Component)) || _class3;
 
 exports.default = Content;
 

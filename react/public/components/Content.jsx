@@ -11,8 +11,8 @@ class Content extends React.Component {
 		return (
 			<div>
 				<ul>
-					{list.list.map(item => 
-						<ListItem item={item} />
+					{list.list.map((item, i) => 
+						<ListItem item={ item } idx={ i } remove={ this.deleteMe }/>
 					)}
 				</ul>
 				<button onClick={ this.clickMe }>Click Me</button>
@@ -21,18 +21,33 @@ class Content extends React.Component {
 	}
 
 	clickMe = () => {
-		console.log('click');
-
 		this.props.list.addItem({
 			title: "Ben"
 		});
 	}
+
+	deleteMe = (event) => {
+		// console.log(event);
+		// console.log(event.target);
+		this.props.list.removeItem(0);
+	}
 }
 
-const ListItem = observer(({item}) =>
-	<li>
-		{item.title}
-	</li>
-)
+@observer
+class ListItem extends React.Component {
+
+	constructor(props) {
+		super(props)
+	}
+
+	render() {
+		return(
+			<li>
+				{this.props.item.title}
+				<button onClick={ this.props.remove }>Remove</button>
+			</li>
+		)
+	}
+}
 
 export default Content;
