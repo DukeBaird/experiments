@@ -1,0 +1,43 @@
+body {
+	background-color: black
+}
+
+.carousel {
+	margin-top: 50px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	transition: 300ms all;
+}
+
+.carousel:hover {
+	  transform: translate3d(-80px, 0, 0);
+}
+
+.carousel:hover .item {
+	opacity: 0.5;
+}
+
+.item {
+	flex: 1 1 auto;
+	min-width: 200px;
+	transition: 300ms all;
+	transform-origin: center left;
+}
+
+.carousel:hover .item:hover {
+	opacity: 1;
+	transform: scale(1.5);
+}
+
+.item:hover ~ .item {
+  transform: translate3d(120px, 0, 0);
+}
+
+.item-container {
+	width: 100%;
+}
+
+.item img {
+	width: 100%;
+}
